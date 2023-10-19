@@ -1,9 +1,6 @@
 package com.app.todoapp;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Category c1 = new Category();
+        c1.setIcon("DucAn");
+        c1.setName("DucAnName");
+        categoryService = new CategoryService(this);
+        categoryService.saveCategory(c1);
         setContentView(R.layout.activity_main);
         mUserName = findViewById(R.id.user_name);
         mUserNameInput = findViewById(R.id.user_name_input);
@@ -67,5 +69,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mDisposable.clear();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        TextView view = findViewById(R.id.text);
+        // do upadte data
+        categoryService.getAllCategory(categories -> view.setText(categories.get(0).getName()), error -> view.setText("Error"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.categoryService.destroy();
     }
 }

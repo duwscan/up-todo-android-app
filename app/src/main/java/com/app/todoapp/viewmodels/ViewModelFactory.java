@@ -1,4 +1,4 @@
-package com.app.todoapp.database.viewmodels;
+package com.app.todoapp.viewmodels;
 
 import android.content.Context;
 
@@ -8,21 +8,21 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.todoapp.database.DaoInjection;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class ViewModelFactory implements ViewModelProvider.Factory {
     private Context context;
 
     public ViewModelFactory(Context context) {
         this.context = context;
     }
+
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(CategoryViewModel.class)) {
             return (T) new CategoryViewModel(DaoInjection.categoryDAO(context));
+        }
+        if (modelClass.isAssignableFrom(TaskViewModel.class)) {
+            return (T) new TaskViewModel(DaoInjection.taskDAO(context));
         }
         //noinspection unchecked
         throw new IllegalArgumentException("Unknown ViewModel class");

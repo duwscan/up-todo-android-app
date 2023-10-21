@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.todoapp.database.categories.Category;
 import com.app.todoapp.viewmodels.CategoryViewModel;
-import com.app.todoapp.viewmodels.TaskViewModel;
+import com.app.todoapp.viewmodels.task.TaskViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

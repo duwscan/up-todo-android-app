@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+    <string name="index">Index</string>
+    <string name="calendar">Calendar</string>
+    <string name="focuse">Focuse</string>
+    <string name="settings">Settings</string>
+</resources>

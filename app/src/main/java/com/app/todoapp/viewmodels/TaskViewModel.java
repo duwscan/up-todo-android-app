@@ -31,6 +31,6 @@ public class TaskViewModel extends ViewModel {
     }
 
     public ListenableFuture<Long> saveTask(Task task) {
-         return taskDAO.save(task);
+        return taskDAO.save(task);
     }
 }

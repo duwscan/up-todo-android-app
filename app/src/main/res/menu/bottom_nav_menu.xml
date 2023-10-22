@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/index"
+        android:enabled="true"
+        android:icon="@drawable/home_icon_24"
+        android:title="@string/index" />
+    <item
+        android:id="@+id/calendar"
+        android:enabled="true"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="@string/calendar" />
+    <item
+        android:id="@+id/fab"
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:id="@+id/focuse"
+        android:enabled="true"
+        android:icon="@drawable/baseline_access_time_24"
+        android:title="@string/focuse" />
+    <item
+        android:id="@+id/settings"
+        android:enabled="true"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/settings" />
+</menu>

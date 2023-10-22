@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/black"
     tools:context=".MainActivity">
-
+    <!--    TODO: Use App Top bar instead-->
     <TextView
-        android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="32sp"
-        tools:text="Hello World!" />sssssssssssssssssssssssssss
+        android:fontFamily="@font/lato_regular"
+        android:padding="20dp"
+        android:text="Title"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
 
-    <EditText
-        android:id="@+id/user_name_input"
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/update_user"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create" />
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/primary"
+        app:fabAlignmentMode="center"
+        app:fabAnchorMode="cradle"
+        app:fabCradleMargin="10dp"
+        app:fabCradleVerticalOffset="0dp">
 
-</LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@color/primary"
+            app:itemActiveIndicatorStyle="@style/App.Custom.ActiveIndicator"
+            app:itemIconTint="@color/white"
+            app:itemTextAppearanceActive="@style/CustomBottomNavigationText"
+            app:itemTextAppearanceInactive="@style/CustomBottomNavigationText"
+            app:itemTextColor="@color/white"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_menu" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryButtonColor"
+        android:src="@drawable/baseline_add_24"
+        app:fabCustomSize="70dp"
+        app:layout_anchor="@id/bottomAppBar"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.FloatingActionButton"
+        app:tint="@color/white" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

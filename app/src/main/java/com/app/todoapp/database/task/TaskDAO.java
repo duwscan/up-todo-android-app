@@ -2,19 +2,13 @@ package com.app.todoapp.database.task;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Upsert;
 
-import com.app.todoapp.database.categories.Category;
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.Date;
 import java.util.List;
-
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface TaskDAO {

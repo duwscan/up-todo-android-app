@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.app.todoapp.databinding.ActivityMainBinding;
+import com.app.todoapp.fragments.FocusFragment;
 import com.app.todoapp.fragments.IndexFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
             titleHeader.setText(item.getTitle());
             if (itemId == INDEX_FRAGMENT) {
                 replaceFragment(new IndexFragment());
+            }
+            if (itemId == FOCUS_FRAGMENT) {
+                replaceFragment(new FocusFragment());
             }
             return true;
         });

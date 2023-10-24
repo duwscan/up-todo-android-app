@@ -61,8 +61,8 @@ public class FocusFragment extends Fragment {
     }
 
     private void secondsPicker(Dialog dialog) {
-        NumberPicker minutes = dialog.findViewById(R.id.seconds_picker);
-        minutes.setMaxValue(59);
-        minutes.setMinValue(0);
+        NumberPicker seconds = dialog.findViewById(R.id.seconds_picker);
+        seconds.setMaxValue(59);
+        seconds.setMinValue(0);
     }
 }

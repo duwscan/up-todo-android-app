@@ -2,6 +2,8 @@ package com.app.todoapp.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -11,6 +13,8 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.NumberPicker;
 
 import com.app.todoapp.R;
@@ -42,12 +46,21 @@ public class FocusFragment extends Fragment {
     private void setTimeFunction() {
         Dialog dialog = new Dialog(this.getContext());
         dialog.setContentView(R.layout.count_down_picker_dialog);
+        dialogConfig(dialog);
         hoursPicker(dialog);
         minutesPicker(dialog);
         secondsPicker(dialog);
         dialog.show();
     }
 
+    private void dialogConfig(Dialog dialog){
+        Window window = dialog.getWindow();
+        if(window==null){
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
     private void hoursPicker(Dialog dialog) {
         NumberPicker hours = dialog.findViewById(R.id.hours_picker);
         hours.setMaxValue(23);

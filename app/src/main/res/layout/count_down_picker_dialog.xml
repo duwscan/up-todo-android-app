@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
-    android:orientation="vertical">
+    android:background="@drawable/diaglog_shape"
+    android:orientation="vertical"
+    android:layout_margin="32dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -24,9 +25,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="16sp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingVertical="16sp">
+        android:orientation="horizontal">
 
         <NumberPicker
             android:id="@+id/hours_picker"
@@ -87,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         android:paddingHorizontal="32sp">
 
@@ -96,15 +98,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/filledButton"
-            android:backgroundTint="@color/primaryButtonColor"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primaryButtonColor"
             android:text="Save" />
     </LinearLayout>
 

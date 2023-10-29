@@ -9,103 +9,41 @@
 
     <!-- TODO: Update blank fragment layout -->
     <FrameLayout
-        android:layout_width="300dp"
+        android:id="@+id/focuse_mode_fragment_content"
+        android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:layout_marginBottom="16dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="52sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="213dp">
-
-        <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@drawable/gray_progressbar_background"
-            android:indeterminate="false"
-            android:max="10"
-            android:progress="10"
-            android:progressDrawable="@drawable/blue_progressbar_background"
-            android:rotation="90" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/lato_bold"
-                android:text="0"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="35sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15sp"
-                android:fontFamily="@font/lato_bold"
-                android:text="@string/sectimeleft"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
-
-        </LinearLayout>
     </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:paddingHorizontal="32sp">
+        android:paddingHorizontal="16sp">
 
         <Button
-            android:id="@+id/resetCountDown"
+            android:id="@+id/cancelTimer"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/cancel"
+            android:textColor="@color/black"
+            app:iconTint="@color/white" />
+        <Button
+            android:id="@+id/start_count"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/resetCountdown"
+            android:layout_gravity="right"
+            android:text="@string/start"
             android:textColor="@color/white"
             app:backgroundTint="@color/primaryButtonColor"
-            app:icon="@drawable/baseline_refresh_24"
             app:iconTint="@color/white" />
-
-        <Button
-            android:id="@+id/newCount"
-            android:layout_marginHorizontal="8sp"
-            style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/newCountdown"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/primaryButtonColor"
-            app:strokeColor="@color/white"
-            app:strokeWidth="2sp"
-            app:icon="@drawable/baseline_control_point_24"
-            app:iconTint="@color/white" />
-
-        <Button
-            android:id="@+id/more15s"
-            style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="15s"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/primaryButtonColor"
-            app:icon="@drawable/baseline_add_24"
-            app:iconTint="@color/white" />
-
-
-    </LinearLayout>
+    </FrameLayout>
 </FrameLayout>

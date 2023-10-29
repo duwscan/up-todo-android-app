@@ -1,81 +1,134 @@
 package com.app.todoapp.fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.NumberPicker;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.app.todoapp.R;
+import com.app.todoapp.database.state.FocusStateType;
 import com.app.todoapp.databinding.FragmentFocusBinding;
-import com.app.todoapp.databinding.FragmentIndexBinding;
+import com.app.todoapp.receiver.AlarmReceiver;
+import com.app.todoapp.utils.TimePickerValue;
 
-public class FocusFragment extends Fragment {
+public class FocusFragment extends Fragment implements TimePickerFragment.PickedTime, TimeCountFragment.TimeCountDownListener {
     FragmentFocusBinding binding;
-    private int timeSelected = 0;
-    private CountDownTimer timeCountDown;
-    private int timeProgress;
-    private Long pauseOffset;
-    private boolean isStart = true;
+    Button startButton;
+    Button cancelButton;
+    private FocusStateType stateType = FocusStateType.CANCEL;
+    private TextView clock;
+    private TimeCountFragment nextTimeCountFragment;
+    private TimePickerFragment timePickerFragment;
+    private TimePickerValue timePickerValue;
+    String time;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFocusBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        startButton = binding.startCount;
+        cancelButton = binding.cancelTimer;
+        cancelButton.setEnabled(false);
+        startButton.setOnClickListener(this::startButtonEvent);
+        cancelButton.setOnClickListener(v -> {
+            stateType = FocusStateType.CANCEL;
+            replaceFragment(new TimePickerFragment());
+            startButton.setText(R.string.start);
+            cancelButton.setEnabled(false);
+        });
         return view;
     }
 
+    void startButtonEvent(View view) {
+        if (stateType.equals(FocusStateType.START)) {
+            // do pause
+            startButton.setText(R.string.continueCount);
+            stateType = FocusStateType.PAUSE;
+            nextTimeCountFragment.pauseTimer();
+        } else if (stateType.equals(FocusStateType.PAUSE)) {
+            nextTimeCountFragment.startTimer();
+            startButton.setText(R.string.pause);
+            stateType = FocusStateType.START;
+        } else if (stateType.equals(FocusStateType.RESET)) {
+            stateType = FocusStateType.RESET;
+            nextTimeCountFragment.startTimer();
+        } else {
+            if (!timePickerValue.isValidate()) {
+                Toast.makeText(getContext(), "Please set your time", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            nextTimeCountFragment.receiveTime(timePickerValue);
+            replaceFragment(nextTimeCountFragment);
+            startButton.setText(R.string.pause);
+            stateType = FocusStateType.START;
+        }
+        cancelButton.setEnabled(true);
+    }
+
     @Override
-    public void onStart() {
-        super.onStart();
-        binding.newCount.setOnClickListener(v -> setTimeFunction());
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        timePickerFragment = new TimePickerFragment();
+        nextTimeCountFragment = new TimeCountFragment();
+        replaceFragment(timePickerFragment);
     }
 
-    private void setTimeFunction() {
-        Dialog dialog = new Dialog(this.getContext());
-        dialog.setContentView(R.layout.count_down_picker_dialog);
-        dialogConfig(dialog);
-        hoursPicker(dialog);
-        minutesPicker(dialog);
-        secondsPicker(dialog);
-        dialog.show();
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.focuse_mode_fragment_content, fragment);
+        fragmentTransaction.commit();
     }
 
-    private void dialogConfig(Dialog dialog){
-        Window window = dialog.getWindow();
-        if(window==null){
+    @Override
+    public void pickedTime(TimePickerValue value) {
+        timePickerValue = value;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Override
+    public void onCountDownFinish() {
+        stateType = FocusStateType.RESET;
+        startButton.setText(R.string.reset);
+        Context context = getContext();
+        if (context == null) {
+            // Handle the case where the context is not available
             return;
         }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    }
-    private void hoursPicker(Dialog dialog) {
-        NumberPicker hours = dialog.findViewById(R.id.hours_picker);
-        hours.setMaxValue(23);
-        hours.setMinValue(0);
+
+        // Get the AlarmManager
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        // Create an Intent with the appropriate context
+        Intent intent = new Intent(context, AlarmReceiver.class);
+
+        // Adjust the request code and flags based on your specific requirements
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        // Ensure that the alarm is properly triggered based on your logic
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
+        }
     }
 
-    private void minutesPicker(Dialog dialog) {
-        NumberPicker minutes = dialog.findViewById(R.id.minutes_picker);
-        minutes.setMaxValue(59);
-        minutes.setMinValue(0);
-    }
-
-    private void secondsPicker(Dialog dialog) {
-        NumberPicker seconds = dialog.findViewById(R.id.seconds_picker);
-        seconds.setMaxValue(59);
-        seconds.setMinValue(0);
+    @Override
+    public boolean forceReset() {
+        return stateType.equals(FocusStateType.RESET);
     }
 }

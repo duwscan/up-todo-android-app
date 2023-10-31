@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.app.todoapp.common.AddTaskButtonOnClickListener;
 import com.app.todoapp.databinding.ActivityMainBinding;
 import com.app.todoapp.focusmode.FocusFragment;
 import com.app.todoapp.index.IndexFragment;
@@ -54,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, POST_NOTIFICATIONS_PERMISSIONS_REQUEST_CODE);
         }
+        // send timer count down notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("default_channel_id", "Uptodo", importance);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+        // set add task FAB- floating action button event
+        binding.addTaskFAB.setOnClickListener(new AddTaskButtonOnClickListener(this));
     }
 
     private void replaceFragment(Fragment fragment) {

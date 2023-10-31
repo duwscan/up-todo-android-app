@@ -1,4 +1,4 @@
-package com.app.todoapp.fragments;
+package com.app.todoapp.index;
 
 import android.os.Bundle;
 
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.app.todoapp.databinding.FragmentIndexBinding;
 public class IndexFragment extends Fragment {
     FragmentIndexBinding binding;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

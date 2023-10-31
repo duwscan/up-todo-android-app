@@ -1,4 +1,4 @@
-package com.app.todoapp.viewmodels;
+package com.app.todoapp.common;
 
 import android.content.Context;
 
@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.app.todoapp.common.CategoryViewModel;
+import com.app.todoapp.common.TaskViewModel;
 import com.app.todoapp.database.DaoInjection;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".focusmode.TimePickerFragment">
+    <LinearLayout
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="16sp"
+        android:orientation="horizontal">
+
+        <NumberPicker
+            android:id="@+id/hours_picker"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="#272727"
+            android:textColor="@color/white"
+            android:theme="@style/AppTheme.CountDownNumberPicker" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="hours"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <NumberPicker
+            android:id="@+id/minutes_picker"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="#272727"
+            android:textColor="@color/white"
+            android:theme="@style/AppTheme.CountDownNumberPicker" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="minutes"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <NumberPicker
+            android:id="@+id/seconds_picker"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="#272727"
+            android:textColor="@color/white"
+            android:theme="@style/AppTheme.CountDownNumberPicker" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="seconds"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</FrameLayout>

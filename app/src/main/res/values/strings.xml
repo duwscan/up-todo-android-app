@@ -2,4 +2,10 @@
     <string name="app_name">UpToDo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sectimeleft">sec time left</string>
+    <string name="start">Start</string>
+    <string name="continueCount">Continue</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
 </resources>

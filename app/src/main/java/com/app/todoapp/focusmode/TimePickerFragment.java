@@ -1,4 +1,4 @@
-package com.app.todoapp.fragments;
+package com.app.todoapp.focusmode;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -48,6 +48,7 @@ public class TimePickerFragment extends Fragment {
         pickedTime.pickedTime(new TimePickerValue(0, 0, 0));
         timePickerGroupEvent();
         return view;
+
     }
 
     public void timePickerGroupEvent() {

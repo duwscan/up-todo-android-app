@@ -1,4 +1,4 @@
-package com.app.todoapp.fragments;
+package com.app.todoapp.focusmode;
 
 import android.content.Context;
 import android.os.Bundle;

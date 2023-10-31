@@ -17,8 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.app.todoapp.databinding.ActivityMainBinding;
-import com.app.todoapp.fragments.FocusFragment;
-import com.app.todoapp.fragments.IndexFragment;
+import com.app.todoapp.focusmode.FocusFragment;
+import com.app.todoapp.index.IndexFragment;
 
 public class MainActivity extends AppCompatActivity {
     final static int INDEX_FRAGMENT = R.id.index;

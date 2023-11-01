@@ -39,25 +39,59 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
-        <!-- You can also add other attributes here such as text color, size, etc. -->
     </style>
-    <!--    -->
-
-<!--    <style name="TextInputLayoutStyle" parent="TextAppearance.MaterialComponents.Subtitle1">-->
-<!--        <item name="boxStrokeColor">@color/text_input_box_stroke</item>-->
-<!--        <item name="colorOnContainer">@color/white</item>-->
-<!--        <item name="android:textColor">@color/white</item>-->
-<!--        <item name="android:radius">8sp</item>-->
-<!--        <item name="android:textColorHint">@color/white</item> &lt;!&ndash; Set the color of the hint text &ndash;&gt;-->
-<!--        <item name="colorControlActivated">@color/white</item>-->
-<!--    </style>-->
-
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
         <item name="android:textSize">8dp</item>
         <item name="hintTextColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/white</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+    </style>
+
+    <style name="SearchBarStyleConner" parent="ShapeAppearanceOverlay.Material3.SearchBar">
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="SearchBarStyle" parent="Widget.Material3.SearchBar.Outlined">
+        <item name="elevation">0dp</item>
+        <item name="cornerSize">10%</item>
+        <item name="shapeAppearanceOverlay">@style/SearchBarStyleConner</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="strokeWidth">@dimen/m3_searchbar_outlined_stroke_width</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+    </style>
+
+    <style name="SearchBarStyleSearchView" parent="android:Widget">
+        <item name="backgroundTint">@color/black</item>
+        <item name="enforceMaterialTheme">false</item>
+        <item name="textColorSearchUrl">@color/white</item>
+        <item name="android:textAppearance">@style/CustomTextAppearance.Material3.SearchView</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Search</item>
+    </style>
+
+    <style name="CustomTextAppearance.Material3.SearchView" parent="Base.TextAppearance.Material3.Search">
+        <item name="android:textAppearance">@macro/m3_comp_search_view_header_input_text_type</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray</item>
+    </style>
+
+
+    <style name="DropDownItemTextAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+    <style name="DropDownLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">8dp</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="boxBackgroundColor">@color/gray_600</item>
         <item name="boxCornerRadiusBottomStart">8dp</item>
         <item name="boxCornerRadiusBottomEnd">8dp</item>
         <item name="boxCornerRadiusTopStart">8dp</item>

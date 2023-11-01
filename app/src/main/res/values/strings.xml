@@ -11,4 +11,12 @@
     <string name="add_text">Add Text</string>
     <string name="taskTitleAdd">Title</string>
     <string name="descriptionAddTask">Description</string>
+    <string-array name="taskFilter">
+        <item>@string/today</item>
+        <item>@string/yesterday</item>
+        <item>@string/all</item>
+    </string-array>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="all">All</string>
 </resources>

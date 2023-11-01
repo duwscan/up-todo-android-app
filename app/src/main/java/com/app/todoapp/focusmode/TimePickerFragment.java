@@ -48,7 +48,6 @@ public class TimePickerFragment extends Fragment {
         pickedTime.pickedTime(new TimePickerValue(0, 0, 0));
         timePickerGroupEvent();
         return view;
-
     }
 
     public void timePickerGroupEvent() {

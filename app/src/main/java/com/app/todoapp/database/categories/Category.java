@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 
+
 @Entity
 public class Category {
     @PrimaryKey(autoGenerate = true)
@@ -13,6 +14,11 @@ public class Category {
     private String name;
     @ColumnInfo(name = "icon")
     private String icon;
+
+    public Category(int uid, String name) {
+        this.uid = uid;
+        this.name = name;
+    }
 
     public int getUid() {
         return uid;
@@ -37,4 +43,5 @@ public class Category {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
 }

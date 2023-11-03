@@ -22,6 +22,9 @@ public interface TaskDAO {
     @Query("SELECT * FROM Task WHERE strftime('%Y-%m-%d', dueDateTime/1000, 'unixepoch') = strftime('%Y-%m-%d', :filterTime/1000, 'unixepoch')")
     LiveData<List<TaskWithCategory>> getTasksByDate(long filterTime);
 
+    @Query("SELECT * FROM Task WHERE title LIKE '%' || :key || '%'")
+    LiveData<List<TaskWithCategory>> getTasksByTitle(String key);
+
     @Upsert
     ListenableFuture<Long> save(Task task);
 }

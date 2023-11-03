@@ -23,9 +23,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(CategoryViewModel.class)) {
             return (T) new CategoryViewModel(DaoInjection.categoryDAO(context));
         }
-        if (modelClass.isAssignableFrom(TaskViewModel.class)) {
-            return (T) new TaskViewModel(DaoInjection.taskDAO(context));
-        }
+//        if (modelClass.isAssignableFrom(TaskViewModel.class)) {
+//            return (T) new TaskViewModel(DaoInjection.taskDAO(context));
+//        }
         //noinspection unchecked
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

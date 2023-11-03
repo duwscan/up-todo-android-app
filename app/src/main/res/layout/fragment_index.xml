@@ -48,12 +48,12 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:paddingVertical="16dp"
                 android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/gray_600"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingVertical="16dp">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -70,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -80,20 +81,23 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <TextView
-                            android:layout_gravity="center_vertical"
+                            android:id="@+id/taskTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
                             android:text="Today at 16:45"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
+                            android:layout_marginRight="16dp"
                             android:background="@color/primaryButtonColor"
                             android:padding="8dp"
-                            android:layout_marginRight="16dp"
                             android:text="Category"
                             android:textColor="@color/white" />
                     </FrameLayout>

@@ -13,11 +13,12 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.todoapp.R;
-import com.app.todoapp.utils.TimePickerValue;
+import com.app.todoapp.database.task.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,6 +38,12 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
     private long selectedDate = MaterialDatePicker.todayInUtcMilliseconds();
     private Date selectedTimeAndDate;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+    private OnSaveTask onSaveTask;
+    private Task newTask;
+
+    public void setOnSaveTask(OnSaveTask onSaveTask) {
+        this.onSaveTask = onSaveTask;
+    }
 
     public AddTaskButtonOnClickListener(Context context) {
         this.context = context;
@@ -118,6 +125,7 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
             });
         });
         datePickerOnDialog(dialog);
+        saveButton(dialog);
         dialog.show();
     }
 
@@ -165,5 +173,30 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
             openAddTaskDialog();
         });
         picker.show(((AppCompatActivity) context).getSupportFragmentManager(), picker.toString());
+    }
+
+    private void saveButton(Dialog dialog) {
+        dialog.findViewById(R.id.saveTask).setOnClickListener(v -> {
+            String errorMessage = "";
+            if (title == null || title.equals("")) {
+                errorMessage = "You must fill your task title";
+            } else if (selectedTimeAndDate == null) {
+                errorMessage = "Please set up your due date";
+            }
+            if (!errorMessage.isEmpty()) {
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            newTask = new Task();
+            newTask.setCompleted(false);
+            newTask.setTitle(title);
+            newTask.setDescription(description);
+            newTask.setPriority("Do first");
+            newTask.setDueDateTime(selectedTimeAndDate);
+            newTask.setBelongToCategoryId(1L);
+            onSaveTask.onSaveTask(newTask);
+            dialog.dismiss();
+        });
+
     }
 }

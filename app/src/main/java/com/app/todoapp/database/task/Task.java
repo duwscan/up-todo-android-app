@@ -14,11 +14,11 @@ public class Task {
     private String description;
     private Date dueDateTime;
     @ColumnInfo(name = "category_id")
-    private int belongToCategoryId;
+    private Long belongToCategoryId;
     private String priority;
     private boolean isCompleted;
 
-    public Task(String title, String description, Date dueDateTime, int belongToCategoryId, String priority, boolean isCompleted) {
+    public Task(String title, String description, Date dueDateTime, Long belongToCategoryId, String priority, boolean isCompleted) {
         this.title = title;
         this.description = description;
         this.dueDateTime = dueDateTime;
@@ -30,7 +30,7 @@ public class Task {
     public Task() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -46,7 +46,7 @@ public class Task {
         return dueDateTime;
     }
 
-    public int getBelongToCategoryId() {
+    public long getBelongToCategoryId() {
         return belongToCategoryId;
     }
 
@@ -74,7 +74,7 @@ public class Task {
         this.dueDateTime = dueDateTime;
     }
 
-    public void setBelongToCategoryId(int belongToCategoryId) {
+    public void setBelongToCategoryId(Long belongToCategoryId) {
         this.belongToCategoryId = belongToCategoryId;
     }
 

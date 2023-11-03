@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.todoapp.R;
 import com.app.todoapp.database.task.Task;
+import com.app.todoapp.utils.DateFormatter;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,7 +38,6 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
     private String description = "";
     private long selectedDate = MaterialDatePicker.todayInUtcMilliseconds();
     private Date selectedTimeAndDate;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
     private OnSaveTask onSaveTask;
     private Task newTask;
 
@@ -73,7 +73,7 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
         dialog.setOnShowListener(dialogInterface -> {
             if (selectedTimeAndDate != null) {
                 TextView text = dialog.findViewById(R.id.dueDateText);
-                text.setText(DUE_DATE + sdf.format(selectedTimeAndDate));
+                text.setText(DUE_DATE + DateFormatter.formatDate(selectedTimeAndDate));
             }
             TextInputLayout textInputLayout = dialog.findViewById(R.id.titleField);
             if (textInputLayout != null) {
@@ -188,15 +188,21 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
                 return;
             }
             newTask = new Task();
-            newTask.setCompleted(false);
+            newTask.setCompleted(true);
             newTask.setTitle(title);
             newTask.setDescription(description);
             newTask.setPriority("Do first");
             newTask.setDueDateTime(selectedTimeAndDate);
             newTask.setBelongToCategoryId(1L);
             onSaveTask.onSaveTask(newTask);
-            dialog.dismiss();
+            clearPayload();
+            dialog.cancel();
         });
+    }
 
+    private void clearPayload() {
+        title = "";
+        description = "";
+        selectedTimeAndDate = null;
     }
 }

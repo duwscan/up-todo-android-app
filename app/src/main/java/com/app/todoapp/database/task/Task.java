@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 public class Task {
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private String title;
     private String description;
     private Date dueDateTime;
@@ -30,7 +30,7 @@ public class Task {
     public Task() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -58,7 +58,7 @@ public class Task {
         return isCompleted;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

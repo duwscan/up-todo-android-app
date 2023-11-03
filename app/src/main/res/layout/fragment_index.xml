@@ -11,7 +11,8 @@
         android:id="@+id/searchBarWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black">
+        android:backgroundTint="@color/black"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.search.SearchBar
             android:id="@+id/search_bar"
@@ -24,91 +25,66 @@
 
     <com.google.android.material.search.SearchView
         style="@style/SearchBarStyleSearchView"
-        android:layout_width="1639dp"
-        android:layout_height="2339dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="Search for your task...."
         app:layout_anchor="@id/search_bar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="100dp"
-        android:orientation="vertical">
-
-        <Spinner
-            android:id="@+id/filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/drop_down_filter_op" />
-        <!--        TODO: Use recyle view-->
+        android:layout_marginTop="100dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray_600"
-                android:orientation="horizontal"
-                android:paddingVertical="16dp">
+                android:layout_marginHorizontal="16dp"
 
-                <FrameLayout
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/filter"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        app:buttonTint="@color/gray" />
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/drop_down_filter_op" />
+                <!--        TODO: Use recyle view-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerviewTaskNotCompleted"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Do something"
-                        android:textColor="@color/white"
-                        android:textSize="16dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/taskTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:text="Today at 16:45"
-                            android:textColor="@color/gray"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginRight="16dp"
-                            android:background="@color/primaryButtonColor"
-                            android:padding="8dp"
-                            android:text="Category"
-                            android:textColor="@color/white" />
-                    </FrameLayout>
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/completedTask"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/drop_down_filter_op"
+                    android:padding="8dp"
+                    android:text="@string/completed"
+                    android:textColor="@color/white" />
+                <!--        TODO: Use recyle view-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerviewTaskCompleted"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="100dp" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
     <!-- TODO: Update blank fragment layout -->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

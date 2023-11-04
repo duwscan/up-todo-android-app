@@ -17,9 +17,9 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.util.List;
 
 public class CategoryViewModel extends ViewModel {
-    private MutableLiveData<List<Category>> data = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
-    private CategoryDAO categoryDAO;
+    private final MutableLiveData<List<Category>> data = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+    private final CategoryDAO categoryDAO;
 
     public CategoryViewModel(CategoryDAO categoryDAO) {
         this.categoryDAO = categoryDAO;

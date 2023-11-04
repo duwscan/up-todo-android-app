@@ -11,7 +11,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.util.List;
 
 public class TaskViewModel extends ViewModel {
-    private TaskDAO taskDAO;
+    private final TaskDAO taskDAO;
 
     public TaskViewModel(TaskDAO taskDAO) {
         this.taskDAO = taskDAO;

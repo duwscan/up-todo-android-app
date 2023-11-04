@@ -16,21 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.todoapp.R;
 import com.app.todoapp.database.categories.Category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> implements Filterable {
 
     private List<Category> listCategory;
-    Context context;
+    private List<Category> listCategoryOld;
     public CategoryAdapter(List<Category> listCategory) {
         this.listCategory = listCategory;
+        this.listCategoryOld = listCategory;
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categories,parent,false);
-        context = parent.getContext();
         return new CategoryViewHolder(view);
     }
 
@@ -58,6 +59,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if(strSearch.isEmpty()){
+                    listCategory = listCategoryOld;
+                }else{
+                    List<Category> list = new ArrayList<>();
+                    for(Category category :listCategoryOld){
+                        if(category.getName().toLowerCase().contains(strSearch.toLowerCase())){
+                            list.add(category);
+                        }
+                    }
+                    listCategory = list;
+                }
+
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = listCategory;
 
@@ -73,14 +87,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
-
-        private RelativeLayout layoutItem;
-        private ImageView button;
-        private TextView name;
+        private final ImageView button;
+        private final TextView name;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
-            layoutItem =itemView.findViewById(R.id.categoryItem);
             button = itemView.findViewById(R.id.buttonCateHome);
             name = itemView.findViewById(R.id.cateName);
         }

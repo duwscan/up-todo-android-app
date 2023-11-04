@@ -65,27 +65,16 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancel"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:textColor="@color/white"
-        android:background="@color/black"
+        android:background="@drawable/shape2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="15dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:background="@color/primaryButtonColor"
-        android:id="@+id/button2"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:text="Create Category"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="15dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="15dp"/>
-
+        android:gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

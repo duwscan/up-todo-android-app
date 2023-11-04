@@ -1,44 +1,39 @@
 package com.app.todoapp.categories;
 
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.todoapp.MainActivity;
 import com.app.todoapp.R;
 import com.app.todoapp.database.categories.Category;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateCategories extends AppCompatActivity {
+public class CreateCategories extends Activity {
     private RecyclerView rcvCreCate;
     private CreateCategoryAdapter createCategoryAdapter;
-
+    private TextView name;
     List<Category> list = new ArrayList<>();
     int icon;
-    String name;
+    AppCompatButton buttonCancel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_categories);
 
-//        Bundle bundle = getIntent().getExtras();
-//        if(bundle == null){
-//            return;
-//        }
-
-//        Category category = (Category) bundle.get("object_category");
-//        icon = category.getUid();
-//        name = category.getName();
+        name = findViewById(R.id.categoryName);
 
         rcvCreCate = findViewById(R.id.createCategoryRecycler);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 4);
@@ -47,34 +42,40 @@ public class CreateCategories extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rcvCreCate.addItemDecoration(itemDecoration);
 
-        createCategoryAdapter = new CreateCategoryAdapter(getListCategories());
+        createCategoryAdapter = new CreateCategoryAdapter(getListCategories(), new IClickItemCategoryListener(){
+            public void OnClickItemCategory(Category category){ onClickNewCategory(category); }
+        });
 
         rcvCreCate.setAdapter(createCategoryAdapter);
 
+        buttonCancel = findViewById(R.id.cancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                turnBack();
+            }
+        });
     }
 
-    private void onClickOk() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Tiêu đề của AlertDialog");  // Đặt tiêu đề của dialog
-        builder.setMessage("Nội dung của AlertDialog");  // Đặt nội dung của dialog
+    private void turnBack() {
+        Intent intent = new Intent(CreateCategories.this, Categories.class);
+        startActivity(intent);
+    }
 
-        builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-//                Categories.list.add(new Category(icon, name));
-                // Xử lý khi người dùng nhấn nút "Đồng ý"
-                dialog.dismiss();  // Đóng dialog
-            }
-        });
+    private void onClickNewCategory(Category category) {
+        String categoryName;
+        categoryName = name.getText().toString();
 
-        builder.setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // Xử lý khi người dùng nhấn nút "Hủy bỏ"
-                dialog.dismiss();  // Đóng dialog
-            }
-        });
-
-        AlertDialog dialog = builder.create();  // Tạo AlertDialog từ builder
-        dialog.show();  // Hiển thị AlertDialog
+        if(TextUtils.isEmpty(categoryName)){
+            Toast.makeText(this, "Hãy nhập vào category name !", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(this, Categories.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("new_category_icon", category);
+            intent.putExtras(bundle);
+            intent.putExtra("new_category_name", categoryName);
+            startActivity(intent);
+        }
     }
 
     private List<Category> getListCategories() {

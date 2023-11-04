@@ -16,19 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.todoapp.R;
 import com.app.todoapp.database.categories.Category;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class CreateCategoryAdapter extends RecyclerView.Adapter<CreateCategoryAdapter.CreateCategoryViewHolder> implements Filterable {
     private List<Category> listCategory;
     Context context;
     private IClickItemCategoryListener iClickItemCategoryListener;
-    public CreateCategoryAdapter(List<Category> listCategory) { this.listCategory = listCategory;}
+    public CreateCategoryAdapter(List<Category> listCategory, IClickItemCategoryListener listener) {
+        this.listCategory = listCategory;
+        this.iClickItemCategoryListener = listener;
+    }
 
     @NonNull
     @Override
     public CreateCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_create_categories,parent,false);
-        context = parent.getContext();
         return new CreateCategoryViewHolder(view);
     }
 
@@ -40,6 +43,12 @@ public class CreateCategoryAdapter extends RecyclerView.Adapter<CreateCategoryAd
         }
         holder.button.setImageResource(category.getUid());
         holder.name.setText(category.getName());
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemCategoryListener.OnClickItemCategory(category);
+            }
+        });
 
         holder.layoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +88,9 @@ public class CreateCategoryAdapter extends RecyclerView.Adapter<CreateCategoryAd
 
     public class CreateCategoryViewHolder extends RecyclerView.ViewHolder {
 
-        private RelativeLayout layoutItem;
-        private ImageView button;
-        private TextView name;
+        private final RelativeLayout layoutItem;
+        private final ImageView button;
+        private final TextView name;
 
         public CreateCategoryViewHolder(View itemView) {
             super(itemView);

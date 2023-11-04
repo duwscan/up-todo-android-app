@@ -30,7 +30,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryRecycler"
             android:layout_width="340dp"
-            android:layout_height="500dp"
+            android:layout_height="580dp"
             android:layout_gravity="center"
             android:background="#2E2C2C"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -2,8 +2,11 @@ package com.app.todoapp.categories;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -21,18 +24,16 @@ public class Categories extends AppCompatActivity {
     private CategoryAdapter categoryAdapter;
     private Button button;
 
-    public static List<Category> list = new ArrayList<>();
+    public List<Category> list = new ArrayList<>();
 
     protected void onCreate(Bundle savedInStanceState){
         super.onCreate(savedInStanceState);
+        Intent intent = getIntent();
         setContentView(R.layout.categories);
 
         rcvCate = findViewById(R.id.categoryRecycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvCate.setLayoutManager(linearLayoutManager);
-
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        rcvCate.addItemDecoration(itemDecoration);
 
         categoryAdapter = new CategoryAdapter(getListCategories());
 
@@ -47,6 +48,7 @@ public class Categories extends AppCompatActivity {
             }
         });
 
+        onActivityResult(0, RESULT_OK, intent);
         categoryAdapter.notifyDataSetChanged();
     }
 
@@ -67,5 +69,27 @@ public class Categories extends AppCompatActivity {
         list.add(new Category(R.drawable.category_home, "Home"));
 
         return list;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == 0) {
+            if (data != null) {
+                Bundle bundle = getIntent().getExtras();
+                if(bundle == null){
+                    return;
+                }
+                Category category = (Category) bundle.get("new_category_icon");
+                String newCategoryName = data.getStringExtra("new_category_name");
+                int newCategoryIcon = category.getUid();
+
+                // Thực hiện việc thêm mục mới vào danh sách và cập nhật giao diện ở đây.
+                Category newCategory = new Category(newCategoryIcon, newCategoryName);
+                list.add(newCategory);
+                categoryAdapter.notifyItemInserted(list.size() - 1);
+            }
+        }
     }
 }

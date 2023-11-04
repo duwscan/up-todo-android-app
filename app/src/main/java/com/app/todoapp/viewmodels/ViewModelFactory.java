@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.app.todoapp.database.DaoInjection;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
-    private Context context;
+    private final Context context;
 
     public ViewModelFactory(Context context) {
         this.context = context;

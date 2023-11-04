@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,15 +17,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.app.todoapp.common.AddTaskButtonOnClickListener;
-import com.app.todoapp.common.OnSaveTask;
-import com.app.todoapp.common.TaskViewModel;
-import com.app.todoapp.database.task.Task;
+import com.app.todoapp.common.task.AddTaskButtonOnClickListener;
+import com.app.todoapp.common.task.OnSaveTask;
+import com.app.todoapp.common.task.TaskViewModel;
 import com.app.todoapp.databinding.ActivityMainBinding;
 import com.app.todoapp.focusmode.FocusFragment;
 import com.app.todoapp.index.IndexFragment;
 import com.app.todoapp.state.TaskState;
-import com.app.todoapp.state.TaskStateType;
 
 public class MainActivity extends AppCompatActivity {
     final static int INDEX_FRAGMENT = R.id.index;

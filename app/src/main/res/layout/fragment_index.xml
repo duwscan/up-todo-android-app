@@ -20,20 +20,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:hint="Search for your task...." />
+            android:hint="Search for your task....">
+
+        </com.google.android.material.search.SearchBar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.search.SearchView
+        android:id="@+id/searchView"
         style="@style/SearchBarStyleSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Search for your task...."
-        app:layout_anchor="@id/search_bar" />
+        app:layout_anchor="@id/search_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginHorizontal="16dp"
+            android:id="@+id/searchRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.search.SearchView>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

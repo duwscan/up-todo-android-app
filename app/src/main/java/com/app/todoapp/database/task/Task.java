@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -12,16 +14,18 @@ public class Task {
     private int id;
     private String title;
     private String description;
-    private Date dueDateTime;
+    private LocalDate dueDate;
+    public LocalTime dueTime;
     @ColumnInfo(name = "category_id")
     private Long belongToCategoryId;
     private String priority;
     private boolean isCompleted;
 
-    public Task(String title, String description, Date dueDateTime, Long belongToCategoryId, String priority, boolean isCompleted) {
+    public Task(String title, String description, LocalDate dueDate, LocalTime dueTime, Long belongToCategoryId, String priority, boolean isCompleted) {
         this.title = title;
         this.description = description;
-        this.dueDateTime = dueDateTime;
+        this.dueDate = dueDate;
+        this.dueTime = dueTime;
         this.belongToCategoryId = belongToCategoryId;
         this.priority = priority;
         this.isCompleted = isCompleted;
@@ -40,10 +44,6 @@ public class Task {
 
     public String getDescription() {
         return description;
-    }
-
-    public Date getDueDateTime() {
-        return dueDateTime;
     }
 
     public long getBelongToCategoryId() {
@@ -70,8 +70,20 @@ public class Task {
         this.description = description;
     }
 
-    public void setDueDateTime(Date dueDateTime) {
-        this.dueDateTime = dueDateTime;
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setDueTime(LocalTime dueTime) {
+        this.dueTime = dueTime;
+    }
+
+    public LocalTime getDueTime() {
+        return dueTime;
     }
 
     public void setBelongToCategoryId(Long belongToCategoryId) {

@@ -15,9 +15,11 @@
         <item>@string/today</item>
         <item>@string/yesterday</item>
         <item>@string/all</item>
+        <item>@string/tomorrow</item>
     </string-array>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="all">All</string>
+    <string name="tomorrow">Tomorrow</string>
     <string name="completed">Completed</string>
 </resources>

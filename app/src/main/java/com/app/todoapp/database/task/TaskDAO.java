@@ -8,6 +8,7 @@ import androidx.room.Upsert;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Dao
@@ -19,8 +20,8 @@ public interface TaskDAO {
     @Query("SELECT * FROM Task")
     LiveData<List<Task>> getAll();
 
-    @Query("SELECT * FROM Task WHERE strftime('%Y-%m-%d', dueDateTime/1000, 'unixepoch') = strftime('%Y-%m-%d', :filterTime/1000, 'unixepoch')")
-    LiveData<List<TaskWithCategory>> getTasksByDate(long filterTime);
+    @Query("SELECT * FROM Task WHERE dueDate = :filterTime")
+    LiveData<List<TaskWithCategory>> getTasksByDate(LocalDate filterTime);
 
     @Query("SELECT * FROM Task WHERE title LIKE '%' || :key || '%'")
     LiveData<List<TaskWithCategory>> getTasksByTitle(String key);

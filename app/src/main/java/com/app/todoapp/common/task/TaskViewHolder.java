@@ -1,4 +1,4 @@
-package com.app.todoapp.common;
+package com.app.todoapp.common.task;
 
 import android.content.Context;
 import android.view.View;

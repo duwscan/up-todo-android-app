@@ -1,9 +1,6 @@
-package com.app.todoapp.common;
+package com.app.todoapp.common.task;
 
-import com.app.todoapp.database.task.Task;
 import com.app.todoapp.database.task.TaskWithCategory;
-
-import java.util.List;
 
 public interface TaskItemEventHandler {
 

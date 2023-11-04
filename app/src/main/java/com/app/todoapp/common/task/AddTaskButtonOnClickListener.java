@@ -1,4 +1,4 @@
-package com.app.todoapp.common;
+package com.app.todoapp.common.task;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,16 +19,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.todoapp.R;
 import com.app.todoapp.database.task.Task;
-import com.app.todoapp.utils.DateFormatter;
+import com.app.todoapp.utils.DateHelper;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 public class AddTaskButtonOnClickListener implements View.OnClickListener {
@@ -73,7 +75,7 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
         dialog.setOnShowListener(dialogInterface -> {
             if (selectedTimeAndDate != null) {
                 TextView text = dialog.findViewById(R.id.dueDateText);
-                text.setText(DUE_DATE + DateFormatter.formatDate(selectedTimeAndDate));
+                text.setText(DUE_DATE + DateHelper.formatDate(selectedTimeAndDate));
             }
             TextInputLayout textInputLayout = dialog.findViewById(R.id.titleField);
             if (textInputLayout != null) {
@@ -188,11 +190,15 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
                 return;
             }
             newTask = new Task();
-            newTask.setCompleted(true);
+            newTask.setCompleted(false);
             newTask.setTitle(title);
             newTask.setDescription(description);
             newTask.setPriority("Do first");
-            newTask.setDueDateTime(selectedTimeAndDate);
+            Instant instant = selectedTimeAndDate.toInstant();
+            LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalTime localTime = instant.atZone(ZoneId.systemDefault()).toLocalTime();
+            newTask.setDueDate(localDate);
+            newTask.setDueTime(localTime);
             newTask.setBelongToCategoryId(1L);
             onSaveTask.onSaveTask(newTask);
             clearPayload();
@@ -205,4 +211,6 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
         description = "";
         selectedTimeAndDate = null;
     }
+
+
 }

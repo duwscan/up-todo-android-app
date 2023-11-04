@@ -1,4 +1,4 @@
-package com.app.todoapp.common;
+package com.app.todoapp.common.task;
 
 import com.app.todoapp.database.task.Task;
 

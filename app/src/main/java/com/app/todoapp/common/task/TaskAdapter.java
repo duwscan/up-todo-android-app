@@ -1,4 +1,4 @@
-package com.app.todoapp.common;
+package com.app.todoapp.common.task;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.todoapp.R;
+import com.app.todoapp.common.task.TaskItemEventHandler;
+import com.app.todoapp.common.task.TaskViewHolder;
 import com.app.todoapp.database.task.TaskWithCategory;
-import com.app.todoapp.utils.DateFormatter;
+import com.app.todoapp.utils.DateHelper;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
@@ -36,7 +40,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         } else {
             holder.category.setVisibility(View.INVISIBLE);
         }
-        holder.dueDate.setText(DateFormatter.formatDate(tasks.get(position).task.getDueDateTime()));
+        Date date = Date.from(tasks.get(position).task.getDueDate().atTime(tasks.get(position).task.getDueTime()).atZone(ZoneId.systemDefault()).toInstant());
+        holder.dueDate.setText(DateHelper.formatDate(date));
         holder.title.setText(tasks.get(position).task.getTitle());
         holder.checkBox.setChecked(tasks.get(position).task.isCompleted());
         if (taskItemEventHandler != null) {

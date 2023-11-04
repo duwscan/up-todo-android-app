@@ -23,7 +23,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Category.class, Task.class}, version = 1)
+@Database(entities = {Category.class, Task.class}, version = 2)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "UpTodo";
@@ -35,6 +35,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABASE_NAME)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

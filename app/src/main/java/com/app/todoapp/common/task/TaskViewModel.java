@@ -1,4 +1,4 @@
-package com.app.todoapp.common;
+package com.app.todoapp.common.task;
 
 import android.app.Application;
 
@@ -18,6 +18,7 @@ import com.app.todoapp.state.TaskState;
 import com.app.todoapp.state.TaskStateType;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -50,13 +51,17 @@ public class TaskViewModel extends AndroidViewModel {
             TaskState.Filter filterState = currentState.get(TaskStateType.FILTER);
             assert filterState != null;
             if (filterState.getFilterState().equals(TaskFilterState.DATE)) {
-                return taskDAO.getTasksByDate((long) filterState.getData());
+                return taskDAO.getTasksByDate((LocalDate) filterState.getData());
             }
-            if (filterState.getFilterState().equals(TaskFilterState.KEY)) {
-                return taskDAO.getTasksByTitle((String) filterState.getData());
+            if (filterState.getFilterState().equals(TaskFilterState.ALL)) {
+                taskDAO.getAllTasksWithCategories();
             }
         }
         return taskDAO.getAllTasksWithCategories();
+    }
+
+    public LiveData<List<TaskWithCategory>> searchTask(String query) {
+        return taskDAO.getTasksByTitle(query);
     }
 
     public ListenableFuture<Long> saveTask(Task task) {

@@ -2,14 +2,10 @@ package com.app.todoapp.categories;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +20,7 @@ public class Categories extends AppCompatActivity {
     private CategoryAdapter categoryAdapter;
     private Button button;
 
-    public List<Category> list = new ArrayList<>();
+    public static List<Category> list = new ArrayList<>();
 
     protected void onCreate(Bundle savedInStanceState){
         super.onCreate(savedInStanceState);
@@ -58,15 +54,15 @@ public class Categories extends AppCompatActivity {
     }
 
     private List<Category> getListCategories() {
-        list.add(new Category(R.drawable.category_grocery, "Grocery"));
-        list.add(new Category(R.drawable.category_sport, "Sport"));
-        list.add(new Category(R.drawable.category_design, "Design"));
-        list.add(new Category(R.drawable.category_university, "University"));
-        list.add(new Category(R.drawable.category_social, "Social"));
-        list.add(new Category(R.drawable.category_music, "Music"));
-        list.add(new Category(R.drawable.category_health, "Health"));
-        list.add(new Category(R.drawable.category_movie, "Movie"));
-        list.add(new Category(R.drawable.category_home, "Home"));
+//        list.add(new Category(R.drawable.category_grocery, "Grocery"));
+//        list.add(new Category(R.drawable.category_sport, "Sport"));
+//        list.add(new Category(R.drawable.category_design, "Design"));
+//        list.add(new Category(R.drawable.category_university, "University"));
+//        list.add(new Category(R.drawable.category_social, "Social"));
+//        list.add(new Category(R.drawable.category_music, "Music"));
+//        list.add(new Category(R.drawable.category_health, "Health"));
+//        list.add(new Category(R.drawable.category_movie, "Movie"));
+//        list.add(new Category(R.drawable.category_home, "Home"));
 
         return list;
     }
@@ -85,7 +81,6 @@ public class Categories extends AppCompatActivity {
                 String newCategoryName = data.getStringExtra("new_category_name");
                 int newCategoryIcon = category.getUid();
 
-                // Thực hiện việc thêm mục mới vào danh sách và cập nhật giao diện ở đây.
                 Category newCategory = new Category(newCategoryIcon, newCategoryName);
                 list.add(newCategory);
                 categoryAdapter.notifyItemInserted(list.size() - 1);

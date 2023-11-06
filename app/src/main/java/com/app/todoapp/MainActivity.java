@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.app.todoapp.calendar.CalendarFragment;
 import com.app.todoapp.common.task.AddTaskButtonOnClickListener;
 import com.app.todoapp.common.task.OnSaveTask;
 import com.app.todoapp.common.task.TaskViewModel;
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
             }
             if (itemId == FOCUS_FRAGMENT) {
                 replaceFragment(new FocusFragment());
+            }
+            if (itemId == CALENDAR_FRAGMENT) {
+                replaceFragment(new CalendarFragment());
             }
             return true;
         });

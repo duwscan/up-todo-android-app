@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:fontFamily="@font/lato_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Edit Title"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="center" />
+
+    <EditText
+        android:fontFamily="@font/lato_regular"
+        android:id="@+id/edt_edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_corner_edt"
+        android:drawableLeft="@drawable/baseline_title_24"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:hint="Title"
+        android:paddingLeft="10dp"
+        android:textColorHint="@color/gray_400"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:fontFamily="@font/lato_regular"
+        android:id="@+id/edt_edit_discription"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_corner_edt"
+        android:drawableLeft="@drawable/baseline_description_24"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:hint="Description"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray_400"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btn_cancel_edit_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_corner_10_gray"
+            android:text="@string/cancel"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:textColor="@color/black"
+            app:iconTint="@color/white"/>
+
+        <Button
+            android:id="@+id/btn_save_edit_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_cornert_10"
+            android:text="@string/save"
+            app:backgroundTint="@color/primaryButtonColor"
+            app:iconTint="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

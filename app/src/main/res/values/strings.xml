@@ -8,4 +8,10 @@
     <string name="pause">Pause</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
+    <string name="tasktime">Task Time : </string>
+    <string name="taskcategory">Task Category : </string>
+    <string name="taskpriority">Task Priority : </string>
+    <string name="notify">Notify  </string>
+    <string name="delete">Delete </string>
+    <string name="save">Save </string>
 </resources>

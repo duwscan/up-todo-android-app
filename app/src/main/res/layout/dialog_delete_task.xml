@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/black"
+    android:padding="10dp">
+
+    <TextView
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:text="Delete Task"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"/>
+
+    <View
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+    <TextView
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:text="Are you sure you want to delete this task ?"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"/>
+    <TextView
+        android:fontFamily="@font/lato_regular"
+        android:id="@+id/tv_title_delete"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btn_cancel_delete"
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_corner_10_gray"
+            android:text="@string/cancel"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:textColor="@color/black"
+            app:iconTint="@color/white"/>
+        <Button
+            android:id="@+id/btn_edit_delete"
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_cornert_10"
+            app:backgroundTint="@color/primaryButtonColor"
+            app:iconTint="@color/white"
+            android:text="@string/delete"/>
+    </LinearLayout>
+
+</LinearLayout>

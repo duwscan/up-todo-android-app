@@ -16,6 +16,7 @@ public class IndexFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentIndexBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
         return view;
     }
 }

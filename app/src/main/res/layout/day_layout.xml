@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_marginHorizontal="8dp"
+    android:background="@color/light_dark">
+    <FrameLayout
+        android:id="@+id/day_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryButtonColor"
+        android:padding="8dp">
+        <TextView
+            android:id="@+id/dayOfWeekText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Mon"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/dayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:fontFamily="@font/lato_regular"
+            android:text="27"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </FrameLayout>
+
+
+</FrameLayout>

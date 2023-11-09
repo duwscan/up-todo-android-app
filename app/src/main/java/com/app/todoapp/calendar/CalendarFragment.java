@@ -2,8 +2,11 @@ package com.app.todoapp.calendar;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.app.todoapp.R;
+import com.app.todoapp.calendar.cmp.model.OnPickedDate;
 import com.app.todoapp.common.task.OnSaveTask;
 import com.app.todoapp.common.task.TaskAdapter;
 import com.app.todoapp.common.task.TaskItemEventHandler;
@@ -28,9 +32,10 @@ import com.app.todoapp.utils.DateHelper;
 import com.sahana.horizontalcalendar.HorizontalCalendar;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.stream.Collectors;
 
-public class CalendarFragment extends Fragment implements OnSaveTask {
+public class CalendarFragment extends Fragment implements OnSaveTask, OnPickedDate {
     FragmentCalendarBinding binding;
     private RecyclerView recyclerViewNotCompletedTask;
     private RecyclerView recyclerViewCompletedTask;
@@ -40,7 +45,11 @@ public class CalendarFragment extends Fragment implements OnSaveTask {
     Button getUncompletedTask;
     Button getCompletedTask;
 
-//    HorizontalCalendar horizontalCalendar;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        replaceFragment(new CalendarCompFragment());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,12 +58,13 @@ public class CalendarFragment extends Fragment implements OnSaveTask {
         View view = binding.getRoot();
         getUncompletedTask = binding.getUncompletedTask;
         getCompletedTask = binding.getCompletedTask;
-//        horizontalCalendar = binding.horizontalCalendar;
+
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         recyclerViewNotCompletedTask = binding.recyclerviewTaskNotCompleted;
         recyclerViewCompletedTask = binding.recyclerviewTaskCompleted;
         recyclerViewNotCompletedTask.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerViewCompletedTask.setLayoutManager(new LinearLayoutManager(requireContext()));
+        state.setFilterState(TaskFilterState.DATE, LocalDate.now());
         taskViewModel.saveState(state);
         taskViewModel.getTask().observe(getViewLifecycleOwner(), taskWithCategories -> {
             TaskAdapter adapterForNotCompleted = new TaskAdapter(requireContext(), taskWithCategories.stream()
@@ -69,22 +79,20 @@ public class CalendarFragment extends Fragment implements OnSaveTask {
             recyclerViewNotCompletedTask.setAdapter(adapterForNotCompleted);
         });
         initUnCompletedAndCompletedButtons();
-//        initCalendar();
         return view;
     }
 
-//    private void initCalendar() {
-//        horizontalCalendar.setOnDateSelectListener(dateModel -> {
-//            LocalDate localDate = LocalDate.of(dateModel.year, dateModel.monthNumber, dateModel.day);
-//            if (localDate.equals(LocalDate.now())) {
-//                getUncompletedTask.setText("Today");
-//            } else {
-//                getUncompletedTask.setText("Uncompleted");
-//            }
-//            state.setFilterState(TaskFilterState.DATE, localDate);
-//            taskViewModel.saveState(state);
-//        });
-//    }
+    @Override
+    public void onPicked(int month, int day) {
+        LocalDate localDate = LocalDate.of(LocalDate.now().getYear(), month, day);
+        if (localDate.equals(LocalDate.now())) {
+            getUncompletedTask.setText("Today");
+        } else {
+            getUncompletedTask.setText("Uncompleted");
+        }
+        state.setFilterState(TaskFilterState.DATE, localDate);
+        taskViewModel.saveState(state);
+    }
 
     private void initUnCompletedAndCompletedButtons() {
         setActiveButtonStyle(getUncompletedTask);
@@ -116,6 +124,13 @@ public class CalendarFragment extends Fragment implements OnSaveTask {
         };
     }
 
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.calendar_fragment, fragment);
+        fragmentTransaction.commit();
+    }
+
     private View.OnClickListener unCompletedButton() {
         return v -> {
             boolean isCompletedTaskVisible = recyclerViewNotCompletedTask.getVisibility() != View.VISIBLE;
@@ -143,4 +158,6 @@ public class CalendarFragment extends Fragment implements OnSaveTask {
         state.setState(TaskStateType.INSERT);
         taskViewModel.saveState(state);
     }
+
+
 }

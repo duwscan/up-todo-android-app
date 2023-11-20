@@ -11,6 +11,7 @@
 
 
     <LinearLayout
+        android:id="@+id/categoryArea"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -18,8 +19,8 @@
         android:background="@drawable/shape">
 
         <ImageView
-            android:layout_gravity="center"
             android:id="@+id/buttonCateHome"
+            android:layout_gravity="center"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/test"
@@ -27,13 +28,13 @@
 
         <TextView
             android:id="@+id/cateName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_regular"
+            android:layout_width="310dp"
+            android:layout_height="40dp"
+            android:fontFamily="@font/lato_bold"
             android:text="@string/home"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="17sp"/>
+            android:textSize="30sp"/>
 
     </LinearLayout>
 

@@ -29,14 +29,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryRecycler"
-            android:layout_width="340dp"
+            android:layout_width="390dp"
             android:layout_height="580dp"
             android:layout_gravity="center"
             android:background="#2E2C2C"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="9dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 

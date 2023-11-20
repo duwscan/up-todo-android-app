@@ -1,5 +1,6 @@
 package com.app.todoapp.categories;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.todoapp.R;
@@ -23,9 +26,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private List<Category> listCategory;
     private List<Category> listCategoryOld;
+    private Categories categories;
     public CategoryAdapter(List<Category> listCategory) {
         this.listCategory = listCategory;
         this.listCategoryOld = listCategory;
+    }
+    public CategoryAdapter(Categories categories, List<Category> listCategory){
+        this.categories = categories;
+        this.listCategory = listCategory;
     }
 
     @NonNull
@@ -36,13 +44,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final Category category = listCategory.get(position);
         if(category == null){
             return;
         }
         holder.button.setImageResource(category.getUid());
         holder.name.setText(category.getName());
+        holder.delButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Categories.list.remove(listCategory.get(position));
+                categories.getData(Categories.list);
+            }
+        });
     }
 
     @Override
@@ -89,11 +104,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
         private final ImageView button;
         private final TextView name;
+        private final LinearLayout delButton;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
             button = itemView.findViewById(R.id.buttonCateHome);
             name = itemView.findViewById(R.id.cateName);
+            delButton = itemView.findViewById(R.id.categoryArea);
         }
     }
 }

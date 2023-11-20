@@ -22,18 +22,12 @@ public class Categories extends AppCompatActivity {
 
     public static List<Category> list = new ArrayList<>();
 
-    protected void onCreate(Bundle savedInStanceState){
+    protected void onCreate(Bundle savedInStanceState) {
         super.onCreate(savedInStanceState);
         Intent intent = getIntent();
         setContentView(R.layout.categories);
 
-        rcvCate = findViewById(R.id.categoryRecycler);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rcvCate.setLayoutManager(linearLayoutManager);
-
-        categoryAdapter = new CategoryAdapter(getListCategories());
-
-        rcvCate.setAdapter(categoryAdapter);
+        getData(list);
 
         button = findViewById(R.id.addCategories);
 
@@ -53,20 +47,6 @@ public class Categories extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private List<Category> getListCategories() {
-//        list.add(new Category(R.drawable.category_grocery, "Grocery"));
-//        list.add(new Category(R.drawable.category_sport, "Sport"));
-//        list.add(new Category(R.drawable.category_design, "Design"));
-//        list.add(new Category(R.drawable.category_university, "University"));
-//        list.add(new Category(R.drawable.category_social, "Social"));
-//        list.add(new Category(R.drawable.category_music, "Music"));
-//        list.add(new Category(R.drawable.category_health, "Health"));
-//        list.add(new Category(R.drawable.category_movie, "Movie"));
-//        list.add(new Category(R.drawable.category_home, "Home"));
-
-        return list;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -74,7 +54,7 @@ public class Categories extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 0) {
             if (data != null) {
                 Bundle bundle = getIntent().getExtras();
-                if(bundle == null){
+                if (bundle == null) {
                     return;
                 }
                 Category category = (Category) bundle.get("new_category_icon");
@@ -86,5 +66,14 @@ public class Categories extends AppCompatActivity {
                 categoryAdapter.notifyItemInserted(list.size() - 1);
             }
         }
+    }
+
+    public void getData(List<Category> list) {
+        rcvCate = findViewById(R.id.categoryRecycler);
+        categoryAdapter = new CategoryAdapter(this, list);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        rcvCate.setLayoutManager(layoutManager);
+        rcvCate.setAdapter(categoryAdapter);
+        categoryAdapter.notifyDataSetChanged();
     }
 }

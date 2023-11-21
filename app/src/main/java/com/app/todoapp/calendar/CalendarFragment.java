@@ -149,6 +149,10 @@ public class CalendarFragment extends Fragment implements OnSaveTask, OnPickedDa
                 item.task.setCompleted(isChecked);
                 onSaveTask(item.task);
             });
+            selector.title.setOnClickListener(v -> {
+                // open details dialog
+                
+            });
         });
     }
 

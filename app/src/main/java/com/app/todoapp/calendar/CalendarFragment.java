@@ -155,6 +155,8 @@ public class CalendarFragment extends Fragment implements OnSaveTask, OnPickedDa
                 TaskDetailsBottomSheet.context(requireActivity())
                         .setOnUpdateTaskListener(task -> {
                             this.onSaveTask(task.task);
+                        }).setOnDeleteTaskListener(task -> {
+                            this.deleteTask(task.task);
                         })
                         .showTaskDetails(item);
             });
@@ -168,5 +170,10 @@ public class CalendarFragment extends Fragment implements OnSaveTask, OnPickedDa
         taskViewModel.saveState(state);
     }
 
+    public void deleteTask(Task task) {
+        taskViewModel.deleteTask(task);
+        state.setState(TaskStateType.INSERT);
+        taskViewModel.saveState(state);
+    }
 
 }

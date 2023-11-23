@@ -67,4 +67,8 @@ public class TaskViewModel extends AndroidViewModel {
     public ListenableFuture<Long> saveTask(Task task) {
         return taskDAO.save(task);
     }
+
+    public ListenableFuture<Integer> deleteTask(Task task) {
+        return taskDAO.delete(task);
+    }
 }

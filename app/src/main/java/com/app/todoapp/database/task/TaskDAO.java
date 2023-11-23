@@ -2,6 +2,7 @@ package com.app.todoapp.database.task;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Upsert;
@@ -28,4 +29,7 @@ public interface TaskDAO {
 
     @Upsert
     ListenableFuture<Long> save(Task task);
+
+    @Delete
+    ListenableFuture<Integer> delete(Task task);
 }

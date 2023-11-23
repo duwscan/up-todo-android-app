@@ -91,7 +91,7 @@ public class IndexFragment extends Fragment implements OnSaveTask {
                 TaskDetailsBottomSheet.context(requireActivity())
                         .setOnUpdateTaskListener(task -> {
                             this.onSaveTask(task.task);
-                        })
+                        }).setOnDeleteTaskListener(task -> this.deleteTask(task.task))
                         .showTaskDetails(item);
             });
         });
@@ -145,5 +145,11 @@ public class IndexFragment extends Fragment implements OnSaveTask {
                         searchResult.setAdapter(null);
                     }
                 });
+    }
+
+    public void deleteTask(Task task) {
+        taskViewModel.deleteTask(task);
+        state.setState(TaskStateType.INSERT);
+        taskViewModel.saveState(state);
     }
 }

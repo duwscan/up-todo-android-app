@@ -55,11 +55,20 @@ public class TaskDetailsBottomSheet {
         void updateTask(TaskWithCategory task);
     }
 
-    private OnUpdateTask onUpdateTaskListener;
+    public interface OnDeleteTask {
+        void deleteTask(TaskWithCategory task);
+    }
 
+    private OnUpdateTask onUpdateTaskListener;
+    private OnDeleteTask onDeleteTaskListener;
 
     public TaskDetailsBottomSheet setOnUpdateTaskListener(OnUpdateTask onUpdateTaskListener) {
         this.onUpdateTaskListener = onUpdateTaskListener;
+        return this;
+    }
+
+    public TaskDetailsBottomSheet setOnDeleteTaskListener(OnDeleteTask onDeleteTaskListener) {
+        this.onDeleteTaskListener = onDeleteTaskListener;
         return this;
     }
 
@@ -103,6 +112,14 @@ public class TaskDetailsBottomSheet {
         editButtonEventHandler(bottomSheetDialog, taskWithCategory);
         editTaskTime.setOnClickListener(v -> {
             editTaskTime(bottomSheetDialog);
+        });
+        Button del = bottomSheetDialog.findViewById(R.id.deleteTask);
+        assert del != null;
+        del.setOnClickListener(v -> {
+            this.onDeleteTaskListener.deleteTask(task);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            bottomSheetDialog.cancel();
+            bottomSheetDialog.dismiss();
         });
 
     }

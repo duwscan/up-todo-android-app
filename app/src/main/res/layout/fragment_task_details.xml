@@ -171,4 +171,18 @@
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/deleteTask"
+        style="@style/deActiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="64dp"
+        android:padding="8dp"
+        android:text="Delete"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,7 +8,7 @@
     <string name="pause">Pause</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
-    <string name="add_text">Add Text</string>
+    <string name="add_text">Add Task</string>
     <string name="taskTitleAdd">Title</string>
     <string name="descriptionAddTask">Description</string>
     <string-array name="taskFilter">

@@ -103,7 +103,17 @@
     <style name="activeButton" parent="Widget.Material3.Button.TonalButton">
 
     </style>
-    <style name="deActiveButton" parent="Widget.Material3.Button.OutlinedButton">
 
+    <style name="deActiveButton" parent="Widget.Material3.Button.OutlinedButton"></style>
+
+    <style name="closeDialog" parent="Widget.Material3.Button.IconButton.Filled">
+        <item name="backgroundTint">@color/white</item>
+        <item name="materialThemeOverlay">@style/themeOverlayButton</item>
+    </style>
+    <style name="themeOverlayButton" parent="ThemeOverlay.Material3.Button">
+        <item name="colorOnContainerUnchecked">
+            #1D1D1D
+        </item>
+        <item name="android:background">@color/black</item>
     </style>
 </resources>

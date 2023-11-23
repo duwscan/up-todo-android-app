@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.app.todoapp.R;
 import com.app.todoapp.common.task.OnSaveTask;
 import com.app.todoapp.common.task.TaskAdapter;
+import com.app.todoapp.common.task.TaskDetailsBottomSheet;
 import com.app.todoapp.common.task.TaskItemEventHandler;
 import com.app.todoapp.common.task.TaskViewModel;
 import com.app.todoapp.database.task.Task;
@@ -84,6 +85,14 @@ public class IndexFragment extends Fragment implements OnSaveTask {
             selector.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 item.task.setCompleted(isChecked);
                 onSaveTask(item.task);
+            });
+            selector.card.setOnClickListener(v -> {
+                // open details dialog
+                TaskDetailsBottomSheet.context(requireActivity())
+                        .setOnUpdateTaskListener(task -> {
+                            this.onSaveTask(task.task);
+                        })
+                        .showTaskDetails(item);
             });
         });
     }

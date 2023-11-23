@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
     android:background="@color/gray_600"
     android:orientation="horizontal"
-    android:paddingVertical="8dp"
-    android:layout_marginVertical="8dp">
+    android:paddingVertical="8dp">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -16,13 +16,14 @@
 
         <CheckBox
             android:id="@+id/checkBox"
-            app:buttonTint="@color/gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            app:buttonTint="@color/gray" />
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/taskWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

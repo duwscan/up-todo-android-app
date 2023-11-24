@@ -104,7 +104,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
         private final ImageView button;
         private final TextView name;
-        private final LinearLayout delButton;
+        private final ImageView delButton;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);

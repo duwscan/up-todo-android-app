@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.todoapp.R;
+import com.app.todoapp.category.CategoryPickerDialog;
+import com.app.todoapp.database.categories.Category;
 import com.app.todoapp.database.task.Task;
 import com.app.todoapp.utils.DateHelper;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -31,10 +34,18 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class AddTaskButtonOnClickListener implements View.OnClickListener {
     Context context;
+    private List<Category> categoryList;
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    Category initialCategory;
     private final String DUE_DATE = "Due Date: ";
     private String title = "";
     private String description = "";
@@ -73,9 +84,12 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
         window.setAttributes(windowAttributes);
         dialog.setCancelable(true);
         dialog.setOnShowListener(dialogInterface -> {
+            TextView text = dialog.findViewById(R.id.dueDateText);
             if (selectedTimeAndDate != null) {
-                TextView text = dialog.findViewById(R.id.dueDateText);
+                text.setVisibility(View.VISIBLE);
                 text.setText(DUE_DATE + DateHelper.formatDate(selectedTimeAndDate));
+            } else {
+                text.setVisibility(View.GONE);
             }
             TextInputLayout textInputLayout = dialog.findViewById(R.id.titleField);
             if (textInputLayout != null) {
@@ -126,8 +140,17 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
                 }
             });
         });
+        TextView textView = dialog.findViewById(R.id.choosenCate);
+        if (initialCategory != null) {
+            textView.setVisibility(View.VISIBLE);
+            textView.setText("Category: " + initialCategory.getName());
+        } else {
+            textView.setVisibility(View.GONE);
+        }
+
         datePickerOnDialog(dialog);
         saveButton(dialog);
+        categoryDialog(dialog);
         dialog.show();
     }
 
@@ -199,7 +222,9 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
             LocalTime localTime = instant.atZone(ZoneId.systemDefault()).toLocalTime();
             newTask.setDueDate(localDate);
             newTask.setDueTime(localTime);
-            newTask.setBelongToCategoryId(1L);
+            if (initialCategory != null) {
+                newTask.setBelongToCategoryId((long) initialCategory.getUid());
+            }
             onSaveTask.onSaveTask(newTask);
             clearPayload();
             dialog.cancel();
@@ -210,7 +235,26 @@ public class AddTaskButtonOnClickListener implements View.OnClickListener {
         title = "";
         description = "";
         selectedTimeAndDate = null;
+        initialCategory = null;
     }
 
+    public void categoryDialog(Dialog dialog) {
+        ImageButton categoryPicker = dialog.findViewById(R.id.categoryPicker);
+        categoryPicker.setOnClickListener(v -> {
+            dialog.cancel();
+            CategoryPickerDialog categoryPickerDialog = new CategoryPickerDialog(context);
+            categoryPickerDialog.setCategoryList(categoryList);
+            categoryPickerDialog.setDefaultPickedCategoryId(initialCategory != null ? initialCategory.getUid() : null);
+            categoryPickerDialog.setOnPick(category -> {
+                initialCategory = category;
+                categoryPickerDialog.dismiss();
+                categoryPickerDialog.cancel();
+            });
+            categoryPickerDialog.show(initialCategory != null ? initialCategory.getUid() : null);
+            categoryPickerDialog.setOnCancelListener(dialog1 -> {
+                openAddTaskDialog();
+            });
+        });
+    }
 
 }

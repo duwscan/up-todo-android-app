@@ -22,4 +22,5 @@
     <string name="all">All</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="completed">Completed</string>
+    <string name="category">Categories</string>
 </resources>

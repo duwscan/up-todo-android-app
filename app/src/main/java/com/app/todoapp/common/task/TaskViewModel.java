@@ -45,6 +45,10 @@ public class TaskViewModel extends AndroidViewModel {
         return Transformations.switchMap(state, this::getFilteredTasks);
     }
 
+    public LiveData<List<TaskWithCategory>> getAll() {
+        return taskDAO.getAll();
+    }
+
     private LiveData<List<TaskWithCategory>> getFilteredTasks(TaskState taskState) {
         Map<TaskStateType, TaskState.Filter> currentState = taskState.getState();
         if (currentState.containsKey(TaskStateType.FILTER)) {

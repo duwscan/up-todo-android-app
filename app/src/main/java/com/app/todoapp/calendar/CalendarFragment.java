@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.app.todoapp.R;
 import com.app.todoapp.calendar.cmp.model.OnPickedDate;
+import com.app.todoapp.category.CategoryViewModel;
 import com.app.todoapp.common.task.OnSaveTask;
 import com.app.todoapp.common.task.TaskAdapter;
 import com.app.todoapp.common.task.TaskDetailsBottomSheet;
@@ -42,9 +43,9 @@ public class CalendarFragment extends Fragment implements OnSaveTask, OnPickedDa
     private RecyclerView recyclerViewCompletedTask;
     private TaskViewModel taskViewModel;
     private final TaskState state = new TaskState();
-
     Button getUncompletedTask;
     Button getCompletedTask;
+    private CategoryViewModel categoryViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,10 +58,11 @@ public class CalendarFragment extends Fragment implements OnSaveTask, OnPickedDa
                              Bundle savedInstanceState) {
         binding = FragmentCalendarBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
         getUncompletedTask = binding.getUncompletedTask;
         getCompletedTask = binding.getCompletedTask;
-
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         recyclerViewNotCompletedTask = binding.recyclerviewTaskNotCompleted;
         recyclerViewCompletedTask = binding.recyclerviewTaskCompleted;
         recyclerViewNotCompletedTask.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -151,14 +153,18 @@ public class CalendarFragment extends Fragment implements OnSaveTask, OnPickedDa
                 onSaveTask(item.task);
             });
             selector.card.setOnClickListener(v -> {
+                categoryViewModel.getAll().observe(getViewLifecycleOwner(), categoryList -> {
+                    TaskDetailsBottomSheet.context(requireActivity())
+                            .setCategoryList(categoryList)
+                            .setOnUpdateTaskListener(task -> {
+                                this.onSaveTask(task.task);
+                            }).setOnDeleteTaskListener(task -> {
+                                this.deleteTask(task.task);
+                            })
+                            .showTaskDetails(item);
+                });
                 // open details dialog
-                TaskDetailsBottomSheet.context(requireActivity())
-                        .setOnUpdateTaskListener(task -> {
-                            this.onSaveTask(task.task);
-                        }).setOnDeleteTaskListener(task -> {
-                            this.deleteTask(task.task);
-                        })
-                        .showTaskDetails(item);
+
             });
         });
     }

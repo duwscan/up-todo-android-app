@@ -17,8 +17,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.app.todoapp.calendar.CalendarCompFragment;
 import com.app.todoapp.calendar.CalendarFragment;
+import com.app.todoapp.category.CategoryFragment;
+import com.app.todoapp.category.CategoryViewModel;
 import com.app.todoapp.common.task.AddTaskButtonOnClickListener;
 import com.app.todoapp.common.task.OnSaveTask;
 import com.app.todoapp.common.task.TaskViewModel;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     final static int INDEX_FRAGMENT = R.id.index;
     final static int CALENDAR_FRAGMENT = R.id.calendar;
     final static int FOCUS_FRAGMENT = R.id.focuse;
-    final static int SETTINGS_FRAGMENT = R.id.settings;
+    final static int CATEGORY_FRAGMENT = R.id.settings;
     private ActivityMainBinding binding;
     private TextView titleHeader;
     private static final int POST_NOTIFICATIONS_PERMISSIONS_REQUEST_CODE = 123;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == CALENDAR_FRAGMENT) {
                 replaceFragment(new CalendarFragment());
             }
+            if (itemId == CATEGORY_FRAGMENT) {
+                replaceFragment(new CategoryFragment());
+            }
             return true;
         });
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -76,17 +80,21 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
         // set add task FAB- floating action button event
-        AddTaskButtonOnClickListener addTaskButtonOnClickListener = new AddTaskButtonOnClickListener(this);
-        addTaskButtonOnClickListener.setOnSaveTask(task -> {
-            try {
-                OnSaveTask handler = (OnSaveTask) this.getSupportFragmentManager().findFragmentById(R.id.fragment_content);
-                if (handler != null) {
-                    handler.onSaveTask(task);
+        CategoryViewModel categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        categoryViewModel.getAll().observe(this, categories -> {
+            AddTaskButtonOnClickListener addTaskButtonOnClickListener = new AddTaskButtonOnClickListener(this);
+            addTaskButtonOnClickListener.setCategoryList(categories);
+            addTaskButtonOnClickListener.setOnSaveTask(task -> {
+                try {
+                    OnSaveTask handler = (OnSaveTask) this.getSupportFragmentManager().findFragmentById(R.id.fragment_content);
+                    if (handler != null) {
+                        handler.onSaveTask(task);
+                    }
+                } catch (Exception e) {
                 }
-            } catch (Exception e) {
-            }
+            });
+            binding.addTaskFAB.setOnClickListener(addTaskButtonOnClickListener);
         });
-        binding.addTaskFAB.setOnClickListener(addTaskButtonOnClickListener);
     }
 
     private void replaceFragment(Fragment fragment) {

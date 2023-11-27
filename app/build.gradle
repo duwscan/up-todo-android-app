@@ -46,4 +46,5 @@ dependencies {
     // 4. Android - Use Guava types in your public API:
     api("com.google.guava:guava:32.1.3-android")
     implementation 'io.github.b-sahana:horizontalcalendar:1.2.2'
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 }

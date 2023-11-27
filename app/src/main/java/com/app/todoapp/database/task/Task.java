@@ -2,7 +2,10 @@ package com.app.todoapp.database.task;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import com.app.todoapp.database.categories.Category;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

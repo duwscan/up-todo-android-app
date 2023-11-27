@@ -19,7 +19,7 @@ public interface TaskDAO {
     LiveData<List<TaskWithCategory>> getAllTasksWithCategories();
 
     @Query("SELECT * FROM Task")
-    LiveData<List<Task>> getAll();
+    LiveData<List<TaskWithCategory>> getAll();
 
     @Query("SELECT * FROM Task WHERE dueDate = :filterTime")
     LiveData<List<TaskWithCategory>> getTasksByDate(LocalDate filterTime);

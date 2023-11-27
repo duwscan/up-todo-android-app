@@ -37,6 +37,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         if (tasks.get(position).category != null) {
             holder.category.setText(tasks.get(position).category.getName());
+            holder.category.setBackgroundColor(Integer.parseInt(tasks.get(position).category.getIcon()));
         } else {
             holder.category.setVisibility(View.INVISIBLE);
         }

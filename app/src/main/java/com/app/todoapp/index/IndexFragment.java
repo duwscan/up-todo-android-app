@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.app.todoapp.R;
+import com.app.todoapp.category.CategoryViewModel;
 import com.app.todoapp.common.task.OnSaveTask;
 import com.app.todoapp.common.task.TaskAdapter;
 import com.app.todoapp.common.task.TaskDetailsBottomSheet;
@@ -38,7 +39,7 @@ public class IndexFragment extends Fragment implements OnSaveTask {
     private final TaskState state = new TaskState();
     private RecyclerView recyclerViewNotCompletedTask;
     private RecyclerView recyclerViewCompletedTask;
-
+    private CategoryViewModel categoryViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +47,7 @@ public class IndexFragment extends Fragment implements OnSaveTask {
         binding = FragmentIndexBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         // show data
         recyclerViewNotCompletedTask = binding.recyclerviewTaskNotCompleted;
         recyclerViewCompletedTask = binding.recyclerviewTaskCompleted;
@@ -88,11 +90,16 @@ public class IndexFragment extends Fragment implements OnSaveTask {
             });
             selector.card.setOnClickListener(v -> {
                 // open details dialog
-                TaskDetailsBottomSheet.context(requireActivity())
-                        .setOnUpdateTaskListener(task -> {
-                            this.onSaveTask(task.task);
-                        }).setOnDeleteTaskListener(task -> this.deleteTask(task.task))
-                        .showTaskDetails(item);
+                categoryViewModel.getAll().observe(getViewLifecycleOwner(), categoryList -> {
+                    TaskDetailsBottomSheet.context(requireActivity())
+                            .setCategoryList(categoryList)
+                            .setOnUpdateTaskListener(task -> {
+                                this.onSaveTask(task.task);
+                            }).setOnDeleteTaskListener(task -> {
+                                this.deleteTask(task.task);
+                            })
+                            .showTaskDetails(item);
+                });
             });
         });
     }

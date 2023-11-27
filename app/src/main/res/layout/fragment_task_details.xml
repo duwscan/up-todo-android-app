@@ -160,12 +160,13 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/editTaskCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
                     android:background="@color/gray_600"
                     android:padding="8dp"
-                    android:text="Home"
+                    android:text="None"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>

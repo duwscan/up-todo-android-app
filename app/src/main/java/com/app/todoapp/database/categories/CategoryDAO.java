@@ -6,7 +6,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Upsert;
 
+import com.app.todoapp.database.task.Task;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
@@ -24,9 +26,9 @@ public interface CategoryDAO {
 
 
     // insert and update combine
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    ListenableFuture<Long> save(Category categories);
+    @Upsert
+    ListenableFuture<Long> save(Category category);
 
     @Delete
-    void delete(Category user);
+    ListenableFuture<Integer> delete(Category task);
 }

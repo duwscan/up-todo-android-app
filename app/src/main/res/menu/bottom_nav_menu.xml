@@ -23,6 +23,6 @@
     <item
         android:id="@+id/settings"
         android:enabled="true"
-        android:icon="@drawable/baseline_settings_24"
-        android:title="@string/settings" />
+        android:icon="@drawable/baseline_category_24"
+        android:title="@string/category" />
 </menu>

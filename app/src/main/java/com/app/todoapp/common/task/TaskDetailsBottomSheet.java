@@ -18,8 +18,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 
 import com.app.todoapp.R;
+import com.app.todoapp.category.CategoryPickerDialog;
+import com.app.todoapp.database.categories.Category;
 import com.app.todoapp.database.task.Task;
 import com.app.todoapp.database.task.TaskWithCategory;
 import com.app.todoapp.utils.DateHelper;
@@ -36,16 +39,26 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class TaskDetailsBottomSheet {
     public Context context;
     private TextView title;
     private TextView description;
     private TaskWithCategory task;
+    private List<Category> categoryList;
 
+    public TaskDetailsBottomSheet setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+        return this;
+    }
+
+    private TextView editTaskCategory;
     private TextView editTaskTime;
     private Long selectionDate;
     private Long selectionDateAndTime;
+
+    private Category initialCategory;
 
     private TaskDetailsBottomSheet(Context context) {
         this.context = context;
@@ -78,6 +91,7 @@ public class TaskDetailsBottomSheet {
 
     public void showTaskDetails(TaskWithCategory taskWithCategory) {
         task = taskWithCategory;
+        initialCategory = taskWithCategory.category;
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
         BottomSheetBehavior<View> bottomSheetBehavior;
         View bottomSheetView = bottomSheetDialog.getLayoutInflater().inflate(R.layout.fragment_task_details, null);
@@ -94,7 +108,7 @@ public class TaskDetailsBottomSheet {
         Button saveTask = bottomSheetDialog.findViewById(R.id.save);
         assert saveTask != null;
         saveTask.setOnClickListener(v -> {
-            onUpdateTaskListener.updateTask(taskWithCategory);
+            onUpdateTaskListener.updateTask(task);
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             bottomSheetDialog.cancel();
             bottomSheetDialog.dismiss();
@@ -121,11 +135,42 @@ public class TaskDetailsBottomSheet {
             bottomSheetDialog.cancel();
             bottomSheetDialog.dismiss();
         });
-
+        categoryDialog(bottomSheetDialog);
     }
 
+    public void categoryDialog(BottomSheetDialog dialog) {
+        editTaskCategory = dialog.findViewById(R.id.editTaskCategory);
+        editTaskCategory.setOnClickListener(v -> {
+            CategoryPickerDialog categoryPickerDialog = new CategoryPickerDialog(context);
+            categoryPickerDialog.setCategoryList(categoryList);
+            categoryPickerDialog.setDefaultPickedCategoryId(initialCategory != null ? initialCategory.getUid() : null);
+            categoryPickerDialog.setOnPick(category -> {
+                initialCategory = category;
+                if (initialCategory != null) {
+                    task.task.setBelongToCategoryId((long) initialCategory.getUid());
+                    editTaskCategory.setText(initialCategory.getName());
+                    editTaskCategory.setBackgroundColor(Integer.parseInt(initialCategory.getIcon()));
+                } else {
+                    int colorResId = R.color.gray_600;
+                    int color = ContextCompat.getColor(context, colorResId);
+                    editTaskCategory.setText("None");
+                    editTaskCategory.setBackgroundColor(color);
+                    task.task.setBelongToCategoryId(null);
+                    task.category = null;
+                }
+                categoryPickerDialog.dismiss();
+                categoryPickerDialog.cancel();
+            });
+            categoryPickerDialog.show(initialCategory != null ? initialCategory.getUid() : null);
+        });
+    }
 
     private void bindTaskInformationToDialog(TaskWithCategory task, BottomSheetDialog dialog) {
+        editTaskCategory = dialog.findViewById(R.id.editTaskCategory);
+        if (task.category != null) {
+            editTaskCategory.setText(task.category.getName());
+            editTaskCategory.setBackgroundColor(Integer.parseInt(task.category.getIcon()));
+        }
         title = dialog.findViewById(R.id.task_details_title);
         String titleText = task.task.getTitle() != null ? task.task.getTitle() : "";
         title.setText(titleText);

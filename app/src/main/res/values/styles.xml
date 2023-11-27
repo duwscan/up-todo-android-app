@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="bottom_menu_item" parent="Widget.AppCompat.Light.ActionBar.TabText">
         <item name="android:titleTextAppearance">@color/white</item>
@@ -26,10 +26,94 @@
     </style>
 
     <style name="MyApp.Button" parent="@style/Widget.MaterialComponents.Button">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.MaterialButton</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.MaterialButton
+        </item>
     </style>
 
     <style name="ShapeAppearanceOverlay.MyApp.MaterialButton" parent="">
         <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="CustomHintTextAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="android:textSize">8dp</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+    </style>
+
+    <style name="SearchBarStyleConner" parent="ShapeAppearanceOverlay.Material3.SearchBar">
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="SearchBarStyle" parent="Widget.Material3.SearchBar.Outlined">
+        <item name="elevation">0dp</item>
+        <item name="cornerSize">10%</item>
+        <item name="shapeAppearanceOverlay">@style/SearchBarStyleConner</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="strokeWidth">@dimen/m3_searchbar_outlined_stroke_width</item>
+        <item name="strokeColor">?attr/colorOutline</item>
+    </style>
+
+    <style name="SearchBarStyleSearchView" parent="android:Widget">
+        <item name="backgroundTint">@color/black</item>
+        <item name="enforceMaterialTheme">false</item>
+        <item name="textColorSearchUrl">@color/white</item>
+        <item name="android:textAppearance">@style/CustomTextAppearance.Material3.SearchView</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Search</item>
+    </style>
+
+    <style name="CustomTextAppearance.Material3.SearchView" parent="Base.TextAppearance.Material3.Search">
+        <item name="android:textAppearance">@macro/m3_comp_search_view_header_input_text_type</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray</item>
+    </style>
+
+
+    <style name="DropDownItemTextAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="DropDownLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">8dp</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="boxBackgroundColor">@color/gray_600</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+    </style>
+
+    <style name="activeButton" parent="Widget.Material3.Button.TonalButton">
+
+    </style>
+
+    <style name="deActiveButton" parent="Widget.Material3.Button.OutlinedButton"></style>
+
+    <style name="closeDialog" parent="Widget.Material3.Button.IconButton.Filled">
+        <item name="backgroundTint">@color/white</item>
+        <item name="materialThemeOverlay">@style/themeOverlayButton</item>
+    </style>
+    <style name="themeOverlayButton" parent="ThemeOverlay.Material3.Button">
+        <item name="colorOnContainerUnchecked">
+            #1D1D1D
+        </item>
+        <item name="android:background">@color/black</item>
     </style>
 </resources>

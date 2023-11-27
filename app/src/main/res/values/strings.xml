@@ -8,4 +8,19 @@
     <string name="pause">Pause</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
+    <string name="add_text">Add Task</string>
+    <string name="taskTitleAdd">Title</string>
+    <string name="descriptionAddTask">Description</string>
+    <string-array name="taskFilter">
+        <item>@string/today</item>
+        <item>@string/yesterday</item>
+        <item>@string/all</item>
+        <item>@string/tomorrow</item>
+    </string-array>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="all">All</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="completed">Completed</string>
+    <string name="category">Categories</string>
 </resources>

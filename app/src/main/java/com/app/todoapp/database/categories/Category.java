@@ -11,6 +11,7 @@ public class Category {
     private int uid;
     @ColumnInfo(name = "name")
     private String name;
+    // holder the color -> cannot refactor becauce it cause the migration err
     @ColumnInfo(name = "icon")
     private String icon;
 

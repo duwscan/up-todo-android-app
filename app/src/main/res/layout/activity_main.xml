@@ -23,20 +23,14 @@
             android:textColor="@color/white"
             android:textSize="25sp" />
 
-        <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        <FrameLayout
+            android:id="@+id/fragment_content"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize">
+            <!-- Your fragment content here -->
+        </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/fragment_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-                <!-- Your fragment content here -->
-            </FrameLayout>
-
-        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -66,6 +60,7 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addTaskFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primaryButtonColor"

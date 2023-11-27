@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.app.todoapp.common.CategoryViewModel;
-import com.app.todoapp.common.TaskViewModel;
 import com.app.todoapp.database.DaoInjection;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
@@ -23,9 +21,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(CategoryViewModel.class)) {
             return (T) new CategoryViewModel(DaoInjection.categoryDAO(context));
         }
-        if (modelClass.isAssignableFrom(TaskViewModel.class)) {
-            return (T) new TaskViewModel(DaoInjection.taskDAO(context));
-        }
+//        if (modelClass.isAssignableFrom(TaskViewModel.class)) {
+//            return (T) new TaskViewModel(DaoInjection.taskDAO(context));
+//        }
         //noinspection unchecked
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
